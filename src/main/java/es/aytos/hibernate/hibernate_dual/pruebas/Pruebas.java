@@ -12,9 +12,7 @@ import es.aytos.hibernate.hibernate_dual.repositorio.RepositorioProducto;
 public class Pruebas {
 
 	public static void main(String[] args) {
-//		System.out.println(crearPersona());
-//		System.out.println(crearProducto());
-		modificarPersona2();
+		crearProducto();
 	}
 	
 	private static Integer crearPersona() {
@@ -29,6 +27,33 @@ public class Pruebas {
 		return RepositorioPersona.crearPersona(persona);
 	}
 	
+	private static void modificarPersona() {
+		RepositorioPersona.modificarPersona(1, "Nadie");
+	}
+	
+	private static void modificarPersona2() {
+		Persona persona = new Persona();
+		persona.setIdPersona(1);
+		persona.setNombre("Manuel Jesús2");
+		persona.setApellidos("Martín Prieto2");
+		persona.setEdad(25);
+		persona.setEstadoCivil(EstadoCivil.CASADO);
+		persona.setDni("02345678X");
+		
+		RepositorioPersona.modificarPersona2(persona);
+	}
+	
+	private static void eliminarPersona() {
+		RepositorioPersona.eliminarPersona(1);
+	}
+	
+	private static void eliminarPersona2() {
+		Persona persona = new Persona();
+		persona.setIdPersona(3);
+		
+		RepositorioPersona.eliminarPersona2(persona);
+	}
+	
 	private static Integer crearProducto() {
 		final Producto producto = new Producto();
 		producto.setNombre("Algo");
@@ -40,19 +65,19 @@ public class Pruebas {
 		return RepositorioProducto.crearProducto(producto);
 	}
 	
-	private static void modificarPersona() {
-		RepositorioPersona.modificarPersona(1, "Nadie");
+	private static void modificarProducto() {
+		Producto producto = new Producto();
+		producto.setIdProducto(1);
+		producto.setNombre("Algo 2.0");
+		producto.setDescripcion("Puede que funcione");
+		producto.setCaducidad(new Date());
+		producto.setTipo(TipoProducto.PRODUCTO);
+		producto.setPrecio(5.5);
+		
+		RepositorioProducto.modificarProducto(producto);
 	}
 	
-	private static void modificarPersona2() {
-		Persona persona = new Persona();
-		persona.setIdPersona(8);
-		persona.setNombre("Manuel Jesús2");
-		persona.setApellidos("Martín Prieto2");
-		persona.setEdad(25);
-		persona.setEstadoCivil(EstadoCivil.CASADO);
-		persona.setDni("02345678X");
-		
-		RepositorioPersona.modificarPersona2(persona);
+	private static void eliminarProducto() {
+		RepositorioProducto.eliminarProducto(2);
 	}
 }
