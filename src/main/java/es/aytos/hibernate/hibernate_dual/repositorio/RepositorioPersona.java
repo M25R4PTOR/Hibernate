@@ -27,4 +27,44 @@ public class RepositorioPersona {
 			sesion.close();
 		}
 	}
+	
+	public static void modificarPersona(final Integer idPersona, final String nombre) {
+		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
+		
+		try {
+			sesion.beginTransaction();
+			
+			sesion.createQuery("Update Persona set per_nom = :nombre where per_id = :identificador").setParameter("nombre", nombre).setParameter("identificador", idPersona).executeUpdate();
+			
+//Línea anterior igual a las comentadas			
+//			final Persona personaBBDD = (Persona) sesion.createQuery("from Persona where PER_ID = :idPersona").setParameter("idPersona", idPersona).uniqueResult();			
+//			personaBBDD.setNombre(nombre);
+			
+			sesion.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println("Se ha producido u error modificando una persona: " + e.getMessage());
+			sesion.getTransaction().rollback();
+			throw new RuntimeException();
+		} finally {
+			sesion.close();
+		}
+	}
+	
+	public static void modificarPersona2(Persona persona) {
+		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
+		
+		try {
+			sesion.beginTransaction();
+					
+			sesion.saveOrUpdate(persona);
+			
+			sesion.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println("Se ha producido u error modificando una persona: " + e.getMessage());
+			sesion.getTransaction().rollback();
+			throw new RuntimeException();
+		} finally {
+			sesion.close();
+		}
+	}
 }

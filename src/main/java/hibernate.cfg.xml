@@ -11,9 +11,10 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
-		<property name="hibernate.hbm2ddl.auto">create</property>
+		<property name="hibernate.hbm2ddl.auto">none</property>
 
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona" />
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Producto" />
 
 	</session-factory>
 </hibernate-configuration>
