@@ -6,32 +6,12 @@ import org.hibernate.Session;
 
 import es.aytos.hibernate.hibernate_dual.modelo.EstadoCivil;
 import es.aytos.hibernate.hibernate_dual.modelo.Persona;
-import es.aytos.hibernate.hibernate_dual.modelo.Persona2;
+import es.aytos.hibernate.hibernate_dual.modelo.Cliente;
 import es.aytos.hibernate.hibernate_dual.util.HibernateUtil;
 
 public class RepositorioPersona {
 
 	public static Integer crearPersona(final Persona persona) {
-		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
-
-		try {
-			sesion.beginTransaction();
-
-			final Integer idPersona = (Integer) sesion.save(persona);
-
-			sesion.getTransaction().commit();
-
-			return idPersona;
-		} catch (Exception e) {
-			System.out.println("Se ha producido un error insertando la persona: " + e.getMessage());
-			e.printStackTrace();
-			throw new RuntimeException();
-		} finally {
-			sesion.close();
-		}
-	}
-	
-	public static Integer crearPersona2(final Persona2 persona) {
 		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
 
 		try {
@@ -119,7 +99,7 @@ public class RepositorioPersona {
 			sesion.beginTransaction();
 
 			final Persona personaBBDD = (Persona) sesion.createQuery("from Persona where PER_ID = :identificador")
-					.setParameter("identificador", persona.getIdPersona()).uniqueResult();
+					.setParameter("identificador", persona.getIdUsuario()).uniqueResult();
 
 			sesion.delete(personaBBDD);
 
@@ -134,13 +114,13 @@ public class RepositorioPersona {
 	}
 
 	public static Persona consultarNombreCompleto(Integer idPersona) {
-		final Session sesion = HibernateUtil.construirSessionFactory().getCurrentSession();
+		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
 		try {
 			sesion.beginTransaction();
 			return (Persona) sesion.createQuery("from Persona where per_id = :idPersona")
 					.setParameter("idPersona", idPersona).uniqueResult();
 		} catch (Exception e) {
-			System.out.println("Se ha prducido un error con la consulta: " + e.getMessage());
+			System.out.println("Se ha producido un error con la consulta: " + e.getMessage());
 			sesion.getTransaction().rollback();
 			throw new RuntimeException(e);
 		} finally {
@@ -149,7 +129,7 @@ public class RepositorioPersona {
 	}
 
 	public static List<Persona> consultar(String nombre, String apellidos, String dni, EstadoCivil estadoCivil) {
-		final Session sesion = HibernateUtil.construirSessionFactory().getCurrentSession();
+		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
 		try {
 			sesion.beginTransaction();
 			
@@ -184,7 +164,7 @@ public class RepositorioPersona {
 			}
 			return consulta.list();
 		} catch (Exception e) {
-			System.out.println("Se ha prducido un error con la consulta: " + e.getMessage());
+			System.out.println("Se ha producido un error con la consulta: " + e.getMessage());
 			sesion.getTransaction();
 			throw new RuntimeException(e);
 		} finally {

@@ -1,50 +1,40 @@
 package es.aytos.hibernate.hibernate_dual.modelo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
-//@Table(name = "A_PER")
+@Table(name = "A_PER")
 public class Persona extends Usuario{
 
-//	@Id
-//	@GeneratedValue
-//	@Column(name = "PER_ID")
-//	private int idPersona;
-
-	//@Column(name = "PER_NOM", nullable = false, length = 50)
-	@Column(name = "PER_NOM", length = 50)
+	@Column(name = "PER_NOM", nullable = false, length = 50)
 	private String nombre;
 
-	//@Column(name = "PER_APE", nullable = false, length = 250)
-	@Column(name = "PER_APE", length = 250)
+	@Column(name = "PER_APE", nullable = false, length = 250)
 	private String apellidos;
 
-	//@Column(name = "PER_DNI", nullable = false, length = 9, unique = true)
-	@Column(name = "PER_DNI", length = 9, unique = true)
+	@Column(name = "PER_DNI", nullable = false, length = 9, unique = true)
 	private String dni;
 
-	//@Column(name = "PER_EDA", nullable = false)
-	@Column(name = "PER_EDA")
+	@Column(name = "PER_EDA", nullable = false)
 	private Integer edad;
 
-	//@Column(name = "PER_ECV", nullable = false)
-	@Column(name = "PER_ECV")
+	@Column(name = "PER_ECV", nullable = false)
 	@Enumerated
 	private EstadoCivil estadoCivil;
 	
+	@ManyToMany(cascade = {CascadeType.ALL})
+    private List<Direccion> direcciones = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Telefono> telefonos = new HashSet<>();
+	
 	public Persona() {
 	}
-
-//	public int getIdPersona() {
-//		return idPersona;
-//	}
-//
-//	public void setIdPersona(int idPersona) {
-//		this.idPersona = idPersona;
-//	}
 
 	public String getNombre() {
 		return nombre;
@@ -86,5 +76,32 @@ public class Persona extends Usuario{
 		this.estadoCivil = estadoCivil;
 	}
 	
-	
+
+    public List<Direccion> getDirecciones() {
+        return direcciones;
+    }
+
+    public void addDireccion(Direccion direccion) {
+        direcciones.add(direccion);
+        direccion.getPersonas().add( this );
+    }
+
+    public void removeDireccion(Direccion direccion) {
+    	direcciones.remove(direccion);
+        direccion.getPersonas().remove( this );
+    }
+    
+    public Set<Telefono> getTelefonos() {
+        return telefonos;
+    }
+
+    public void addTelefono(Telefono telefono) {
+    	telefonos.add( telefono );
+    	telefono.setPersona(this);
+    }
+
+    public void removeTelefono(Telefono telefono) {
+    	telefonos.remove(telefono);
+    	telefono.setPersona(null);
+    }
 }

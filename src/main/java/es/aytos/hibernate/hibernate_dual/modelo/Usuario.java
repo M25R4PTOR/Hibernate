@@ -7,12 +7,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="A_USU")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "PER_ID")
+	@Column(name = "USU_ID")
 	private int idUsuario;
 
 	@Column(name = "USU_LOG", nullable = false, unique = true)
