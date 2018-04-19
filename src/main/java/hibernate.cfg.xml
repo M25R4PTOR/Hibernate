@@ -14,7 +14,9 @@
 		<property name="hibernate.hbm2ddl.auto">none</property><!-- Utilizar create para "empezar de 0" -->
 
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona" />
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona2" />
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Producto" />
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Usuario" />
 
 	</session-factory>
 </hibernate-configuration>
