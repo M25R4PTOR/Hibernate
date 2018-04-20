@@ -11,7 +11,11 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
-		<property name="hibernate.hbm2ddl.auto">create</property><!-- Utilizar create para "empezar de 0" -->
+		<property name="hibernate.hbm2ddl.auto">update</property><!-- Utilizar create para "empezar de 0" -->
+
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.jcache.JCacheRegionFactory</property>
+		<property name="hibernate.javax.cache.provider">org.ehcache.jsr107.EhcacheCachingProvider</property>
 
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Persona" />
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Cliente" />
@@ -19,6 +23,7 @@
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Usuario" />
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Direccion" />
 		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Telefono" />
+		<mapping class="es.aytos.hibernate.hibernate_dual.modelo.Aficion" />
 
 	</session-factory>
 </hibernate-configuration>

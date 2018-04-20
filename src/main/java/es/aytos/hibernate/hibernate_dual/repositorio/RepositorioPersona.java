@@ -117,8 +117,15 @@ public class RepositorioPersona {
 		final Session sesion = HibernateUtil.getMiFactoria().getCurrentSession();
 		try {
 			sesion.beginTransaction();
-			return (Persona) sesion.createQuery("from Persona where per_id = :idPersona")
+			
+			Persona persona = (Persona) sesion.createQuery("from Persona p where p.idUsuario = :idPersona")
 					.setParameter("idPersona", idPersona).uniqueResult();
+			
+//			Pintar los telefonos de la persona
+//			persona.getTelefonos().stream().forEach(telefono -> System.out.println(telefono.getNumero()));
+			
+			return persona;
+			
 		} catch (Exception e) {
 			System.out.println("Se ha producido un error con la consulta: " + e.getMessage());
 			sesion.getTransaction().rollback();

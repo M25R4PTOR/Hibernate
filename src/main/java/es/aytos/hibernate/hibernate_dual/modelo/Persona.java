@@ -30,8 +30,11 @@ public class Persona extends Usuario{
 	@ManyToMany(cascade = {CascadeType.ALL})
     private List<Direccion> direcciones = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Telefono> telefonos = new HashSet<>();
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Aficion>  aficiones = new ArrayList<>();
 	
 	public Persona() {
 	}

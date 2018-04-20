@@ -22,6 +22,7 @@ public class Pruebas {
 //		modificarCliente();
 //		eliminarUsuario();
 //		consultarCliente("%Manuel%", "", "", null, "aaa2");
+		consultarPersona(1);
 	}
 	
 	private static Integer crearPersona(String dni, String login) {
@@ -135,6 +136,7 @@ public class Pruebas {
 		System.out.println(persona.getEstadoCivil());
 		System.out.println(persona.getEdad());
 		System.out.println(persona.getDni());
+		persona.getTelefonos().stream().forEach(telefono -> System.out.println(telefono.getNumero()));
 	}
 
 	private static void consultarPersona(String nombre, String apellidos, String dni, EstadoCivil estadoCivil) {
