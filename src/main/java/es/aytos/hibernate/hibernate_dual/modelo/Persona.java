@@ -4,9 +4,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.SortComparator;
+import org.hibernate.annotations.SortNatural;
+
+import es.aytos.hibernate.hibernate_dual.comparadores.ComparadorTelefonos;
 import es.aytos.hibernate.hibernate_dual.conversores.ConversorGenero;
 
 @Entity
@@ -32,8 +38,13 @@ public class Persona extends Usuario{
 	@ManyToMany(cascade = {CascadeType.ALL})
     private List<Direccion> direcciones = new ArrayList<>();
 	
+	
+	//@OrderBy("TEL_NUM")
+	//@OrderColumn
+	//@SortNatural
 	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Telefono> telefonos = new HashSet<>();
+	@SortComparator(ComparadorTelefonos.class)
+    private SortedSet<Telefono> telefonos = new TreeSet<>();
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Aficion>  aficiones = new ArrayList<>();
@@ -105,7 +116,7 @@ public class Persona extends Usuario{
     }
 
     public void addTelefono(Telefono telefono) {
-    	telefonos.add( telefono );
+    	telefonos.add(telefono);
     	telefono.setPersona(this);
     }
 

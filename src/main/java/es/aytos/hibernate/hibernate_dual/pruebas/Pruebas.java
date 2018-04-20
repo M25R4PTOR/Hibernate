@@ -170,10 +170,19 @@ public class Pruebas {
 	
 	private static void agregarTelefono(Persona persona) {
 		final Telefono telefono = new Telefono();
-		telefono.setNumero("654123654");
+		telefono.setNumero("987456320");
 		final Telefono telefono2 = new Telefono();
 		telefono2.setNumero("987456321");
+		final Telefono telefono3 = new Telefono();
+		telefono3.setNumero("987456326");
+		final Telefono telefono4 = new Telefono();
+		telefono4.setNumero("987456329");
+		final Telefono telefono5 = new Telefono();
+		telefono5.setNumero("987456325");
 		persona.addTelefono(telefono);
 		persona.addTelefono(telefono2);
+		persona.addTelefono(telefono3);
+		persona.addTelefono(telefono4);
+		persona.addTelefono(telefono5);
 	}
 }
