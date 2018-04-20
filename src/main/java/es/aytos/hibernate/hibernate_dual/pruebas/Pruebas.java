@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import es.aytos.hibernate.hibernate_dual.modelo.EstadoCivil;
+import es.aytos.hibernate.hibernate_dual.modelo.Genero;
 import es.aytos.hibernate.hibernate_dual.modelo.Persona;
 import es.aytos.hibernate.hibernate_dual.modelo.Telefono;
 import es.aytos.hibernate.hibernate_dual.modelo.Cliente;
@@ -35,6 +36,7 @@ public class Pruebas {
 		persona.setFechaAlta(new Date());
 		persona.setLogin(login);
 		persona.setPassword("jaa");
+		persona.setGenero(Genero.MASCULINO);
 		agregarDireccion(persona);
 		agregarTelefono(persona);
 		
@@ -136,6 +138,7 @@ public class Pruebas {
 		System.out.println(persona.getEstadoCivil());
 		System.out.println(persona.getEdad());
 		System.out.println(persona.getDni());
+		System.out.println(persona.getGenero().getCodigo());
 		persona.getTelefonos().stream().forEach(telefono -> System.out.println(telefono.getNumero()));
 	}
 

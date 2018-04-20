@@ -7,6 +7,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import es.aytos.hibernate.hibernate_dual.conversores.ConversorGenero;
+
 @Entity
 @Table(name = "A_PER")
 public class Persona extends Usuario{
@@ -35,6 +37,10 @@ public class Persona extends Usuario{
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Aficion>  aficiones = new ArrayList<>();
+	
+	@Column(name = "PER_GEN", nullable = false, length = 1)
+	@Convert(converter = ConversorGenero.class)
+	private Genero genero;
 	
 	public Persona() {
 	}
@@ -107,4 +113,12 @@ public class Persona extends Usuario{
     	telefonos.remove(telefono);
     	telefono.setPersona(null);
     }
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
 }
